@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: Servicio de Consulta de Precios
+  description: API REST para consultar las tarifas aplicables de productos para diferentes marcas y fechas.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+
+paths:
+  /consulta-tarifa:
+    get:
+      summary: Consulta de tarifa para un producto en una fecha determinada
+      description: Endpoint para consultar la tarifa que aplica a un producto para una marca en una fecha específica.
+      parameters:
+        - in: query
+          name: fechaAplicacion
+          schema:
+            type: string
+            format: date-time
+          required: true
+          description: Fecha y hora de la aplicación (en formato ISO 8601).
+        - in: query
+          name: idProducto
+          schema:
+            type: integer
+          required: true
+          description: Identificador del producto.
+        - in: query
+          name: idCadena
+          schema:
+            type: integer
+          required: true
+          description: Identificador de la cadena/marca (ej. 1 = ZARA).
+      responses:
+        '200':
+          description: Respuesta exitosa con la tarifa aplicable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idProducto:
+                    type: integer
+                    description: Identificador del producto
+                    example: 35455
+                  idCadena:
+                    type: integer
+                    description: Identificador de la cadena/marca
+                    example: 1
+                  tarifaAplicar:
+                    type: number
+                    format: float
+                    description: Tarifa a aplicar
+                    example: 35.50
+                  fechaInicio:
+                    type: string
+                    format: date-time
+                    description: Fecha de inicio de la tarifa aplicada
+                    example: 2023-09-05T10:00:00Z
+                  fechaFin:
+                    type: string
+                    format: date-time
+                    description: Fecha de fin de la tarifa aplicada
+                    example: 2023-09-05T20:00:00Z
+                  precioFinal:
+                    type: number
+                    format: float
+                    description: Precio final a aplicar
+                    example: 38.95
+        '400':
+          description: Solicitud incorrecta, parámetros inválidos o faltantes.
+        '404':
+          description: No se encontró una tarifa para el producto, marca y fecha solicitados.
