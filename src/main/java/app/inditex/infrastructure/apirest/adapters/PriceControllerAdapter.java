@@ -1,4 +1,9 @@
 package app.inditex.infrastructure.apirest.adapters;
 
-public class PriceControllerAdapter {
+
+import app.inditex.api.ProductPricesApi;
+
+public class PriceControllerAdapter implements ProductPricesApi {
+
+
 }
