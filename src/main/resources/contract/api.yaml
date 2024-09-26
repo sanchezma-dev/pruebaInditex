@@ -7,33 +7,34 @@ servers:
   - url: http://localhost:8080
     description: local server
 tags:
-  - name: product prices
+  - name: Product prices
     description: consult the prices of a product
 paths:
-  /product-prices:
+  /productPrices:
     get:
-      summary: Consult the price of a product on a given date
+      operationId: productPrices
       tags:
-        - product prices
+        - Product prices
+      summary: Consult the price of a product on a given date
       parameters:
-        - in: query
-          name: startDate
-          schema:
-            type: string
-            format: date-time
+        - name: applicationDate
+          in: query
           required: true
-          description: Date application
-        - in: query
-          name: ProductId
           schema:
-            type: integer
+            type: OffsetDateTime
+          example: 2020-06-14T10:00:00.000
+          description: Date in format YYYY-MM-dd'T'HH:mm:ss
+        - name: product
+          in: query
           required: true
-          description: Product identifier
-        - in: query
-          name: BrandId
           schema:
             type: integer
+          description: Product identification
+        - name: brand
+          in: query
           required: true
+          schema:
+            type: integer
           description: Brand identification (example 1 = ZARA).
       responses:
         '200':
@@ -53,16 +54,16 @@ components:
       properties:
         productId:
           type: integer
+          format: int64
         brandId:
           type: integer
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        tariff:
+          format: int64
+        priceList:
           type: integer
-        finalPrice:
-          type: number
-          format: float
+          format: int64
+        startDate:
+          type: OffsetDateTime
+        endDate:
+          type: OffsetDateTime
+        price:
+          type: string

@@ -1,4 +1,14 @@
 package app.inditex.infrastructure.sql.repository;
 
-public class PriceJPARepository {
+import app.inditex.infrastructure.sql.models.PriceEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+public interface PriceJPARepository extends JpaRepository<PriceEntity, Integer> {
+
+    Optional<PriceEntity> findFirstByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(
+            Integer productId, Integer BrandId, LocalDateTime startDate, LocalDateTime endDate);
 }
+
