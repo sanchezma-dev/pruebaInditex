@@ -23,11 +23,13 @@ public class PriceServiceUseCase implements PriceServicePort {
 
     @Override
     public Price getProductPrices(LocalDateTime applicationDate, Integer productId, Integer brandId) {
+        log.info("PriceServiceUseCase: Fetching prices for productId={}, brandId={}, applicationDate={}", productId, brandId, applicationDate);
         var brand = brandRepositoryAdapter.findBrand(brandId);
         if (brand == null) {
+            log.error("Error. Brand with id {} unregistered", brandId);
             throw ApiResponseException.of("No brand found with id: " + brandId, HttpStatus.NOT_FOUND);
         }
 
-        return adapter.findApplicablePrice(applicationDate, productId, brandId);
+       return adapter.findApplicablePrice(applicationDate, productId, brandId);
     }
 }

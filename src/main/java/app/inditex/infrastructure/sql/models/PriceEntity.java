@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,7 +19,7 @@ public class PriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "price_id")
-    private Long priceId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)
@@ -42,7 +41,7 @@ public class PriceEntity {
     private Integer priority;
 
     @Column(name = "price")
-    private BigDecimal price;
+    private Double price;
 
     @Column(name = "curr")
     private String curr;

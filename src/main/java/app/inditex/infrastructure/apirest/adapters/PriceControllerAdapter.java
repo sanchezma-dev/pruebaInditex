@@ -24,6 +24,7 @@ public class PriceControllerAdapter implements ProductPricesApi {
 
     @Override
     public ResponseEntity<PricesResponse> productPrices(LocalDateTime applicationDate, Integer productId, Integer brandId) {
+        log.info("Entering productPrices with productId={}, brandId={}, applicationDate={}", productId, brandId, applicationDate);
         return ResponseEntity.ok(mapper.toRest(service.getProductPrices(applicationDate, productId, brandId)));
     }
 

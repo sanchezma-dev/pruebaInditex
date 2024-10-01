@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Brand {
 
-    private Integer brandId;
+    private Integer id;
     private String name;
 }
