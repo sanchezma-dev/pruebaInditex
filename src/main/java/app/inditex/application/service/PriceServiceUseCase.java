@@ -29,7 +29,14 @@ public class PriceServiceUseCase implements PriceServicePort {
             log.error("Error. Brand with id {} unregistered", brandId);
             throw ApiResponseException.of("No brand found with id: " + brandId, HttpStatus.NOT_FOUND);
         }
+        var price = adapter.findApplicablePrice(applicationDate, productId, brandId);
+        if (price == null) {
+            var errorMessage = "No price found for productId " + productId + " and brandId " + brandId + " on date " + applicationDate;
+            log.error(errorMessage);
+           throw ApiResponseException.of(errorMessage, HttpStatus.NOT_FOUND);
+        }
 
-       return adapter.findApplicablePrice(applicationDate, productId, brandId);
+        return price;
     }
+
 }
