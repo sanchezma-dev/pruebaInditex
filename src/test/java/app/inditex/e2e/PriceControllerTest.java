@@ -50,12 +50,46 @@ public class PriceControllerTest {
                 .body("priceList", notNullValue())
                 .body("price", notNullValue());
     }
-    //FIXME VOY POR AQUI
+
     @Test
-    public void getProductPrice_02() {
+    public void getProductPrice_03() {
         given()
                 .contentType(ContentType.JSON)
-                .queryParam("applicationDate", "2020-06-14T16:00:00.000")
+                .queryParam("applicationDate", "2020-06-14T21:00:00.000")
+                .queryParam("product", 35455)
+                .queryParam("brand", 1)
+                .when()
+                .get("/app/inditex/v1/productPrices")
+                .then()
+                .statusCode(200)
+                .body("productId", equalTo(35455))
+                .body("brandId", equalTo(1))
+                .body("priceList", notNullValue())
+                .body("price", notNullValue());
+    }
+
+    @Test
+    public void getProductPrice_04() {
+        given()
+                .contentType(ContentType.JSON)
+                .queryParam("applicationDate", "2020-06-15T10:00:00.000")
+                .queryParam("product", 35455)
+                .queryParam("brand", 1)
+                .when()
+                .get("/app/inditex/v1/productPrices")
+                .then()
+                .statusCode(200)
+                .body("productId", equalTo(35455))
+                .body("brandId", equalTo(1))
+                .body("priceList", notNullValue())
+                .body("price", notNullValue());
+    }
+
+    @Test
+    public void getProductPrice_05() {
+        given()
+                .contentType(ContentType.JSON)
+                .queryParam("applicationDate", "2020-06-16T21:00:00.000")
                 .queryParam("product", 35455)
                 .queryParam("brand", 1)
                 .when()
